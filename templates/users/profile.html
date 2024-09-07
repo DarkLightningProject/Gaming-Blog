@@ -1,0 +1,67 @@
+{% extends 'partials/base.html' %}
+{% block title %}Profile{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-5 pt-3">
+        <!-- Form Section on the Left -->
+        <div class="col-md-6 offset-md-3">
+            <div class="card shadow my-2">
+                <div class="card-body">
+                    <span class="h4">Profile Page</span>
+                    <!-- Button trigger modal -->
+                    <span>
+                        <button type="button" class="btn btn-info float-right btn-sm" data-toggle="modal" data-target="#exampleModal">
+                            Edit Profile
+                        </button>
+                    </span>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <!-- Ensure the correct image field is being used -->
+                            <img src="{{ user.profile.img.url }}" alt="profile-img" class="img-fluid">
+                        </div>
+                        <div class="col-md-8">
+                            <h4>Name: {{ user.username }}</h4>
+                            <h4>Email: {{ user.email }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Profile Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img class='img-thumbnail' src="{{ user.profile.img.url}}" alt="">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                       
+                        {{ u_form|crispy }}
+                      
+                        {{ p_form|crispy }}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block menu %}
+    <!-- Add menu content here if needed -->
+{% endblock %}

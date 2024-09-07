@@ -1,0 +1,30 @@
+{% extends 'partials/base.html' %}
+{% block title %}Log Out{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="row mt-5 pt-3">
+        <!-- Form Section on the Left -->
+        <div class="col-md-5 offset-md-3">
+            <div class="card shadow my-2">
+                <div class="card-body">
+                    <h4>Logout Page</h4>
+                    <hr>
+                    <div class="alert alert-info">
+                        Are you sure you want to log out?
+                    </div>
+                    <form action="{% url 'users-logout' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Yes, log me out</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block menu %}
+    <!-- Add menu content here if needed -->
+{% endblock %}

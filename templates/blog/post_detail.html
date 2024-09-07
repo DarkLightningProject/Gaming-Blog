@@ -1,0 +1,77 @@
+{% extends 'partials/base.html' %}
+{% block title %}Post Details{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mt-5 pt-3 justify-content-center">
+        <!-- Blog Post Section with Full Height White Background -->
+        <div class="col-md-10 col-lg-9">
+            <div class="post-detail bg-white p-5 shadow" style="border-radius: 10px; min-height: 100vh;">
+                
+                <!-- Gaming Picture at the Top -->
+                {% if post.gaming_image %}
+                <div class="text-center mb-4">
+                    <img class="shadow" src="{{ post.gaming_image.url }}" alt="Gaming Image" 
+                         style="width: 780px; height: 400px; border: 6px solid white; object-fit: cover; display: block; margin: 0 auto;">
+                </div>
+                {% endif %}
+
+                {% if post.author == request.user %}
+                <div class="text-center mb-4">
+                    <a class="btn btn-primary btn-sm mx-2" href="{% url 'blog-post-edit' post.id %}">Edit</a>
+                    <a class="btn btn-danger btn-sm mx-2" href="{% url 'blog-post-delete' post.id %}">Delete</a>
+                </div>
+                {% endif %}
+
+
+                <!-- Blog Title and Content -->
+                <h1 class="text-center">{{ post.title }}</h1>
+                <div class="d-flex align-items-center justify-content-center mb-4">
+                    
+              
+                    <div class="text-center">
+                        <strong>By {{ post.author }}</strong><br>
+                        <small>Published {{ post.date_created }}</small>
+                    </div>
+                </div>
+
+                <div>
+                    {{ post.content|safe }} <!-- Render rich text content safely -->
+                </div>
+                
+                
+                <hr>
+                
+                <p class="mt-3">
+                    <a class="" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      Comments: {{ post.comment_count  }}
+                    </a>
+                   
+                  </p>
+                  <div class="collapse" id="collapseExample">
+                    <div style="height: 250px; overflow-y: scroll;" class="card card-body">
+                         {% for comment in post.comments %}
+                        <p class="text-justify">
+                              {{ comment.content }}
+                        </p>
+                       {% endfor %}
+                       
+  
+                    </div>
+                  </div>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ c_form|crispy }}
+                    <input class ="btn btn-primary btn-sm" type="submit" value="Comment">
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block menu %}
+    <!-- Add menu content here if needed -->
+{% endblock %}

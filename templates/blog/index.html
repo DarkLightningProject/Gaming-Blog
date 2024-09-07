@@ -1,0 +1,105 @@
+{% extends 'partials/base.html' %}
+{% block title %}Home Page{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5 pt-5">
+    <div class="row">
+        <!-- Form Section on the Left -->
+        <div class="col-md-4">
+            <div class="card shadow my-2">
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <input class="btn btn-primary btn-block" type="submit" value="Post">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Posts Section on the Right -->
+        <div class="col-md-8">
+            {% if posts %}
+                {% for post in posts %}
+                <!-- Post Card -->
+                <div class="card shadow my-2">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                {% if post.gaming_image %}
+                                    <img src="{{ post.gaming_image.url }}" alt="{{ post.title }}" style="width: 200px; height: 200px;">
+                                {% else %}
+                                    <img src="{{ STATIC_URL }}images/default_image.png" alt="Default image" style="width: 200px; height: 200px;">
+                                {% endif %}
+                            </div>
+                            <div class="col-md-8">
+                                <small class="text-muted">{{ post.date_created }}</small>
+                                <small class="text-muted ml-2">By {{ post.author.username }}</small>
+                                <hr>
+                                <a class="h3" href="{% url 'blog-post-detail' post.id %}">{{ post.title }}</a>
+                                
+                                <!-- Display Rich Text Content -->
+                                <div class="my-3 post-content">
+                                    {{ post.content|safe }} <!-- Render rich text content safely -->
+                                </div>
+                                
+                                <!-- Like and Dislike Section with Thumbs -->
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div>
+                                        <a id="like-btn-{{ post.id }}" href="{% url 'like-post' post.id %}" class="btn btn-sm btn-outline-success like-btn">
+                                            <i class="fa{% if request.user in post.likes.all %}s{% else %}r{% endif %} fa-thumbs-up"></i>
+                                            ({{ post.total_likes }})
+                                        </a>
+                                        <a id="dislike-btn-{{ post.id }}" href="{% url 'dislike-post' post.id %}" class="btn btn-sm btn-outline-danger dislike-btn">
+                                            <i class="fa{% if request.user in post.dislikes.all %}s{% else %}r{% endif %} fa-thumbs-down"></i>
+                                            ({{ post.total_dislikes }})
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- End of Like and Dislike Section -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No posts available.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Message Display Section -->
+{% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+<!-- End of Message Display Section -->
+
+{% endblock %}
+
+{% block menu %}
+    <!-- Add menu content here if needed -->
+{% endblock %}
+
+<!-- Inline CSS for the post content styling -->
+<style>
+    .post-content {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3; /* Limit to three lines */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    /* Ensure parent container is constrained */
+    .card-body {
+        padding: 0;
+    }
+</style>

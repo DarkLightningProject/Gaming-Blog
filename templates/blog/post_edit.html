@@ -1,0 +1,28 @@
+{% extends 'partials/base.html' %}
+{% block title %}Post Edit Page{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-5 pt-3">
+        <!-- Form Section on the Left -->
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow my-2">
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                       
+                        {{ form.as_p }}
+                        {{ form.media }}
+                        <input class="btn btn-primary btn-sm" type="submit" value="Save">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block menu %}
+    <!-- Add menu content here if needed -->
+{% endblock %}

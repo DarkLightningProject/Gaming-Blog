@@ -1,0 +1,34 @@
+{% extends 'partials/base.html' %}
+{% block title %}Sign Up{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="cover">
+    <div class="container">
+        <div class="row mt-5 pt-3">
+            <!-- Form Section on the Left -->
+            <div class="col-md-5 offset-md-6">
+                <div class="card shadow my-2 translucent-card">
+                    <div class="card-body">
+                        <h4>Sign Up Page</h4>
+                        <hr>
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <input class="btn btn-sign-up" type="submit" value="Sign Up">
+                        </form>
+                        <!-- Heading aligned in the center of the card -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards Section on the Right -->
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block menu %}
+    <!-- Add menu content here if needed -->
+{% endblock %}
