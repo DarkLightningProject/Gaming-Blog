@@ -21,7 +21,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "postscriber/wsgi.py"
+      "dest": "postscriber/wsgi.py",
       "methods": ["GET","POST","PUT","PATCH","DELETE","OPTIONS"]
     }
   ]
