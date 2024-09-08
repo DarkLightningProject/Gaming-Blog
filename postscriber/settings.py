@@ -198,3 +198,6 @@ EMAIL_HOST_USER = 'email@gmail.com'
 EMAIL_HOST_PASSWORD = 'switzerland'  # App password if using 2FA
 
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles_build','static')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
