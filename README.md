@@ -2,4 +2,4 @@ This is my first blog project, so there may be some initial mistakes. However, p
 
 The blog including images to showcase how the website will look. Thank you for your understanding and support.
 
-Note check the email not recieving after  have uploaded in git in my own side it is working
+Note check the email not recieving after  have uploaded in git in my own side it is working,Moreover,Garbage or useless code can be found 
