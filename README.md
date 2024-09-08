@@ -3,3 +3,12 @@ This is my first blog project, so there may be some initial mistakes. However, p
 The gamingblog including images to showcase how the website will look in the folder you can see through it. Thank you for your understanding and support.
 
 Note check the email not recieving after  have uploaded in git in my own side it is working,Moreover,Garbage or useless code can be found 
+
+before opening(pip install django)
+1.)pip install django-crispy-forms
+2.)pip install django-crispy-forms crispy-bootstrap5
+3.)pip install django-tinymce(is'nt used in the project remove it from settings,urls)
+4.)pip install django-ckeditor
+
+
+
